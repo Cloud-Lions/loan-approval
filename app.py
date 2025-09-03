@@ -94,14 +94,6 @@ previous_loan_defaults_on_file = st.selectbox('Previous Loan Defaults on File', 
 person_gender = st.selectbox('Person Gender', gender_options)
 person_education = st.selectbox('Person Education', education_options)
 
-# Calculate loan_percent_income
-if person_income > 0:
-    loan_percent_income = min(1.0, loan_amnt / person_income)  # Cap at 1.0 (100% as fraction)
-    st.write(f"Loan Percent of Income: {loan_percent_income:.2f}")  # Display as fraction (e.g., 0.02)
-else:
-    st.error("Person Income must be greater than 0 to calculate Loan Percent of Income.")
-    st.stop()
-
 # Button to predict
 if st.button('Predict'):
     # Create a dictionary with inputs
@@ -111,7 +103,7 @@ if st.button('Predict'):
         'person_emp_exp': person_emp_exp,
         'loan_amnt': loan_amnt,
         'loan_int_rate': loan_int_rate,
-        'loan_percent_income': loan_percent_income,
+        'loan_percent_income': 0.5,  # Set to 0.5 permanently
         'cb_person_cred_hist_length': cb_person_cred_hist_length,
         'credit_score': credit_score,
         'person_home_ownership': person_home_ownership,
