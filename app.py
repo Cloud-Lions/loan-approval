@@ -1,10 +1,9 @@
-
-     import streamlit as st
-     import pandas as pd
-     import joblib
-     import numpy as np
-     import requests
-     import os
+import streamlit as st
+import pandas as pd
+import joblib
+import numpy as np
+import requests
+import os
 
      # Function to download files
      def download_file(url, filename):
@@ -123,4 +122,3 @@
              st.success(f'Loan Approved! Probability: {probability:.2f}')
          else:
              st.error(f'Loan Denied. Probability of Approval: {probability:.2f}')
-     ```
