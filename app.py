@@ -53,7 +53,7 @@ categoricals = [
 # Define possible values for categorical features
 home_ownership_options = ['RENT', 'OWN', 'MORTGAGE', 'OTHER']
 loan_intent_options = ['PERSONAL', 'EDUCATION', 'MEDICAL', 'VENTURE', 'HOMEIMPROVEMENT', 'DEBTCONSOLIDATION']
-default_options = ['no', 'yes']  # Adjust based on label_encoders['previous_loan_defaults_on_file'].classes_
+default_options = ['No', 'Yes']  # Updated to match LabelEncoder classes
 gender_options = ['male', 'female']
 education_options = ['High School', 'Associate', 'Bachelor', 'Master', 'PhD']
 
