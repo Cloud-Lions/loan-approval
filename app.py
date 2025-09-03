@@ -80,10 +80,11 @@ st.write('Enter the details below to predict loan approval.')
 
 # Numerical inputs with sliders or number inputs
 person_age = st.slider('Person Age', min_value=18, max_value=100, value=30)
-person_income = st.number_input('Person Income', min_value=0, max_value=10000000, value=50000)
+person_income = st.number_input('Person Income', min_value=0, max_value=10000000000, value=50000)
 person_emp_exp = st.slider('Person Employment Experience (years)', min_value=0, max_value=60, value=5)
-loan_amnt = st.number_input('Loan Amount', min_value=500, max_value=1000000, value=10000)
+loan_amnt = st.number_input('Loan Amount', min_value=500, max_value=10000000000, value=10000)
 loan_int_rate = st.slider('Loan Interest Rate (%)', min_value=5.0, max_value=25.0, value=10.0, step=0.1)
+loan_percent_income = st.slider('Loan persent income', min_value=0.0, max_value=1.0, value=0.2, step=0.01)
 cb_person_cred_hist_length = st.slider('Credit History Length (years)', min_value=0, max_value=30, value=5)
 credit_score = st.slider('Credit Score', min_value=300, max_value=850, value=700)
 
@@ -103,7 +104,7 @@ if st.button('Predict'):
         'person_emp_exp': person_emp_exp,
         'loan_amnt': loan_amnt,
         'loan_int_rate': loan_int_rate,
-        'loan_percent_income': 0.5,  # Set to 0.5 permanently
+        'loan_percent_income': loan_percent_income,
         'cb_person_cred_hist_length': cb_person_cred_hist_length,
         'credit_score': credit_score,
         'person_home_ownership': person_home_ownership,
@@ -138,6 +139,6 @@ if st.button('Predict'):
 
     # Display result
     if prediction == 1:
-        st.success(f'Loan Approved! Probability: {probability:.2f}')
+        st.success(f'Loan Approved!             Probability: {probability:.2f}')
     else:
-        st.error(f'Loan Denied. Probability of Approval: {probability:.2f}')
+        st.error(f'Loan Denied.             Probability of Approval: {probability:.2f}')
