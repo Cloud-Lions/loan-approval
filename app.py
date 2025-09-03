@@ -96,8 +96,8 @@ person_education = st.selectbox('Person Education', education_options)
 
 # Calculate loan_percent_income
 if person_income > 0:
-    loan_percent_income = min(1.0, loan_amnt / person_income)  # Cap at 100%
-    st.write(f"Loan Percent of Income: {loan_percent_income:.2%}")
+    loan_percent_income = min(1.0, loan_amnt / person_income)  # Cap at 1.0 (100% as fraction)
+    st.write(f"Loan Percent of Income: {loan_percent_income:.2f}")  # Display as fraction (e.g., 0.02)
 else:
     st.error("Person Income must be greater than 0 to calculate Loan Percent of Income.")
     st.stop()
