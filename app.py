@@ -30,7 +30,23 @@ except FileNotFoundError as e:
     st.error(f"Error loading file: {e}")
     st.stop()
 
-# Define the columns
+# Define the columns in the exact order used during training
+features = [
+    'person_age',
+    'person_income',
+    'person_emp_exp',
+    'loan_amnt',
+    'loan_int_rate',
+    'loan_percent_income',
+    'cb_person_cred_hist_length',
+    'credit_score',
+    'previous_loan_defaults_on_file',
+    'person_home_ownership',
+    'loan_intent',
+    'person_gender',
+    'person_education'
+]
+
 num_cols = [
     'person_age',
     'person_income',
@@ -53,7 +69,7 @@ categoricals = [
 # Define possible values for categorical features
 home_ownership_options = ['RENT', 'OWN', 'MORTGAGE', 'OTHER']
 loan_intent_options = ['PERSONAL', 'EDUCATION', 'MEDICAL', 'VENTURE', 'HOMEIMPROVEMENT', 'DEBTCONSOLIDATION']
-default_options = ['No', 'Yes']  # Updated to match LabelEncoder classes
+default_options = ['No', 'Yes']  # Matches LabelEncoder classes
 gender_options = ['male', 'female']
 education_options = ['High School', 'Associate', 'Bachelor', 'Master', 'PhD']
 
@@ -98,8 +114,8 @@ if st.button('Predict'):
         'person_education': person_education
     }
 
-    # Convert to DataFrame
-    input_df = pd.DataFrame([input_data])
+    # Convert to DataFrame with explicit column order
+    input_df = pd.DataFrame([input_data])[features]
 
     # Encode categorical features
     for col in categoricals:
@@ -113,9 +129,17 @@ if st.button('Predict'):
     # Scale numerical features
     input_df[num_cols] = scaler.transform(input_df[num_cols])
 
+    # Debug: Display input_df columns and types
+    st.write("Input DataFrame columns:", input_df.columns.tolist())
+    st.write("Input DataFrame dtypes:", input_df.dtypes)
+
     # Make prediction
-    prediction = model.predict(input_df)[0]
-    probability = model.predict_proba(input_df)[0][1]  # Probability of approval (class 1)
+    try:
+        prediction = model.predict(input_df)[0]
+        probability = model.predict_proba(input_df)[0][1]  # Probability of approval (class 1)
+    except ValueError as e:
+        st.error(f"Prediction error: {e}")
+        st.stop()
 
     # Display result
     if prediction == 1:
